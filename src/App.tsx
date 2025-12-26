@@ -28,18 +28,72 @@ function App() {
   const handleDownload = async () => {
     const success = await exportToImage();
     if (success) {
-      // Показать toast об успехе
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-frost-blue/20 to-soft-red/10 relative">
+    <div className="min-h-screen bg-gradient-to-br from-soft-green/35 to-soft-red/45 relative overflow-x-hidden">
       <SnowBackground />
       
-      <div className="relative z-10 container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-3 sm:px-4 py-4 sm:py-8">
         <Header />
         
-        <div className="flex flex-col lg:flex-row gap-8 mt-8">
+        {/* Мобильный вид: сначала превью, потом настройки */}
+        <div className="block lg:hidden">
+          {/* Превью на мобильном - сверху */}
+          <div className="mb-6">
+            <div className="flex justify-center">
+              <CardCanvas 
+                cardData={cardData} 
+                className="max-w-[90vw]"
+              />
+            </div>
+            <p className="text-center text-gray-600 text-sm mt-3 mb-6">
+              Предпросмотр. Нажмите "Скачать" для сохранения
+            </p>
+          </div>
+          
+          {/* Настройки на мобильном - снизу с отступом для кнопок */}
+          <div className="space-y-6 pb-24"> {/* Добавлен pb-24 для места под кнопки */}
+            <Controls 
+              cardData={cardData} 
+              onUpdate={updateCardData} 
+            />
+            
+            <BackgroundPicker 
+              selected={cardData.background}
+              onSelect={(bg) => updateCardData({ background: bg })}
+            />
+          </div>
+          
+          {/* Кнопки на мобильном - фиксированные снизу */}
+          <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white to-white pt-4 pb-4 px-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] z-20">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={handleDownload}
+                variant="primary"
+                className="flex-1 py-3 text-base"
+              >
+                💝 Скачать открытку
+              </Button>
+              
+              <Button
+                onClick={() => shareCard()}
+                variant="secondary"
+                className="flex-1 py-3 text-base"
+              >
+                📤 Поделиться
+              </Button>
+            </div>
+            
+            <p className="text-center text-gray-600 text-xs mt-2">
+              Открытка сохранится в формате PNG (1080x1080px)
+            </p>
+          </div>
+        </div>
+        
+        {/* Десктопный вид */}
+        <div className="hidden lg:flex flex-col lg:flex-row gap-8 mt-8">
           {/* Левая колонка - настройки */}
           <div className="lg:w-2/5 space-y-8">
             <Controls 
@@ -72,7 +126,7 @@ function App() {
               </div>
               
               <p className="text-center text-gray-600 text-sm mt-4">
-                Открытка сохранится в формате PNG (1080x1350px)
+                Открытка сохранится в формате PNG (1080x1080px)
               </p>
             </div>
           </div>
@@ -92,8 +146,9 @@ function App() {
         </div>
       </div>
       
-      <div className="fixed bottom-4 right-4 text-4xl animate-float">🎅</div>
-      <div className="fixed top-4 left-4 text-4xl animate-float" style={{ animationDelay: '1s' }}>🦌</div>
+      {/* Декоративные элементы - скрыть на очень маленьких экранах */}
+      <div className="hidden sm:block fixed bottom-4 right-4 text-3xl md:text-4xl animate-float">🎅</div>
+      <div className="hidden sm:block fixed top-4 left-4 text-3xl md:text-4xl animate-float" style={{ animationDelay: '1s' }}>🦌</div>
     </div> 
   );
 }

@@ -1,7 +1,5 @@
-/* src/styles/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Pangolin&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Pangolin&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-/* Добавьте эти три директивы */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,47 +8,59 @@
   * {
     @apply box-border;
   }
-  
+
+  html,
   body {
-    @apply font-sans text-gray-800 bg-gradient-to-br from-frost-blue/20 to-soft-red/10;
+    @apply font-sans text-gray-800;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
   }
-  
-  /* Стили для скроллбара */
+
+  body {
+    @apply bg-gradient-to-br from-frost-blue/20 to-soft-red/10;
+    background-attachment: fixed;
+  }
+
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-warm-white/50;
+    @apply bg-warm-white/30;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-santa-red/30 rounded-full;
+    @apply bg-santa-red/20 rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-santa-red/50;
+    @apply bg-santa-red/40;
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
   }
-  
+
   .btn-primary {
-    @apply px-6 py-3 rounded-full font-semibold transition-all 
+    @apply px-4 py-3 rounded-xl md:rounded-full font-semibold transition-all 
            bg-gradient-to-r from-santa-red to-soft-red 
-           text-white shadow-lg hover:shadow-xl 
-           hover:scale-105 active:scale-95;
+           text-white shadow-md hover:shadow-lg 
+           hover:scale-[1.02] active:scale-95 text-sm md:text-base;
   }
-  
+
   .btn-secondary {
-    @apply px-6 py-3 rounded-full font-semibold transition-all 
-           bg-white/80 text-gray-800 border border-gray-200
-           shadow-lg hover:shadow-xl hover:bg-white;
+    @apply px-4 py-3 rounded-xl md:rounded-full font-semibold transition-all 
+           bg-white/90 text-gray-800 border border-gray-200
+           shadow-md hover:shadow-lg hover:bg-white text-sm md:text-base;
+  }
+
+  /* Класс для контейнеров с отступами */
+  .safe-padding {
+    @apply px-3 sm:px-4 md:px-6;
   }
 }
